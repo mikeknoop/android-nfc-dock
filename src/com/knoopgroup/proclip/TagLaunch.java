@@ -16,11 +16,11 @@
 package com.knoopgroup.proclip;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
+//import android.provider.MediaStore;
 
 /**
  * Holds the context to launch the music app
@@ -39,7 +39,7 @@ public class TagLaunch extends Activity {
 		} else if (mIntentServiceString.equals("home")) {
 			launchHome();
 		} else {
-			Log.i(TAG, "No launch string match");
+			//Log.i(TAG, "No launch string match");
 		}
 		finish();
 	}
@@ -55,11 +55,14 @@ public class TagLaunch extends Activity {
     	//final ComponentName cn = new ComponentName("com.google.android.music", "com.android.music.activitymanagement.TopLevelActivity");
     	//mediaIntent.setComponent(cn);
     	//mediaIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    	
-		Intent mediaIntent = new Intent(MediaStore.INTENT_ACTION_MUSIC_PLAYER);
-		mediaIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		context.startActivity(mediaIntent);
-    	
+
+		//Intent mediaIntent = new Intent(MediaStore.INTENT_ACTION_MUSIC_PLAYER);
+		//mediaIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		//context.startActivity(mediaIntent);
+
+    	Intent intent = new Intent(Intent.ACTION_MAIN);
+    	intent.setComponent(new ComponentName("com.spotify.mobile.android.ui","com.spotify.mobile.android.ui.Launcher"));
+    	context.startActivity(intent);
     }
     
     public void launchHome() {

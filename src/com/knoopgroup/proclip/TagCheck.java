@@ -46,6 +46,7 @@ public class TagCheck extends Activity {
     static PowerManager mPowerManager;
     static KeyguardManager mKeyguardManager;
     static KeyguardLock mKeyguardLock;
+    static TagRecognized tr;
     static Context context;
     
     /**
@@ -83,9 +84,8 @@ public class TagCheck extends Activity {
                  String check = byteToStr(records[0].getPayload());
                  if (check.contains("com.knoopgroup.proclip")) {
                 	 // recognized, take action
-                	 TagRecognized tr = new TagRecognized(getApplicationContext());
+                	 tr = new TagRecognized(getApplicationContext());
                 	 tr.go();
-                	 
                  } else {
                 	 // Tag scanned is not a proclip indicator
                  }

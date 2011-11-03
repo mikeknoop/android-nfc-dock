@@ -17,19 +17,20 @@ package com.knoopgroup.proclip;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 
 /**
- * Receives a tapped notification event (power-cycle bluetooth)
+ * Receives a tapped notification event
  */
 public class TagNotificationReceiver extends Activity {
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	public void onStart() {
+		super.onStart();
 		// start the undock
 		TagRecognized tr = new TagRecognized(getApplicationContext());
-		tr.cycleBluetooth();
-		finish();
-		// cancel the notification
+		tr.mDockHandler = new Handler();
+		tr.writeLog("received");
+		tr.undock(true);
 		// com.knoopgroup.proclip.TagCheck.mNotificationManager.cancel(com.knoopgroup.proclip.TagRecognized.DockNotificationId);
 	}
 }
