@@ -5,6 +5,7 @@ import java.nio.charset.Charset;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -30,6 +31,7 @@ public class ProClipActivity extends Activity {
 	IntentFilter[] mWriteTagFilters;
 	NfcAdapter mNfcAdapter;
 	PendingIntent mNfcPendingIntent;
+	Dialog mDialog;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -53,8 +55,14 @@ public class ProClipActivity extends Activity {
 
 		enableTagWriteMode();
 
-		new AlertDialog.Builder(ProClipActivity.this)
-				.setTitle("Touch tag to write").create().show();
+		mDialog = new AlertDialog.Builder(ProClipActivity.this)
+				.setTitle("Touch tag to write").create();
+		mDialog.show();
+	}
+	
+	private void stopTagWrite() {
+		disableTagWriteMode();
+		mDialog.dismiss();
 	}
 
 	private void enableTagWriteMode() {
@@ -64,6 +72,11 @@ public class ProClipActivity extends Activity {
 		mWriteTagFilters = new IntentFilter[] { tagDetected };
 		mNfcAdapter.enableForegroundDispatch(this, mNfcPendingIntent,
 				mWriteTagFilters, null);
+	}
+	
+	private void disableTagWriteMode() {
+		mWriteMode = false;
+		mNfcAdapter.disableForegroundDispatch(this);
 	}
 
 	@Override
@@ -78,6 +91,8 @@ public class ProClipActivity extends Activity {
 			} else {
 				Toast.makeText(this, "Write failed", Toast.LENGTH_LONG).show();
 			}
+			
+			stopTagWrite();
 		}
 	}
 
