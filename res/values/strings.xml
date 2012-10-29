@@ -18,6 +18,7 @@
 
     <!-- The title of the NFC tag application -->
     <string name="app_name">ProClip</string>
+    <string name="create_tag">Create a tag</string>
 
     
 </resources>
